@@ -154,6 +154,6 @@ if __name__ == '__main__':
         """test the downloading of files"""
         w = GoogleImageExtractor('')#leave blanks if get the search list from file
         searchlist_filename = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'imgsearch_list.txt')
-        w.set_num_image_to_dl(20)
+        w.set_num_image_to_dl(200)
         w.get_searchlist_fr_file(searchlist_filename)#replace the searclist
         w.multi_search_download()
