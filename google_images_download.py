@@ -8,6 +8,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from pattern.web import URL, extension, cache, plaintext, Newsfeed, DOM
+from pyvirtualdisplay import Display
+
 
  
 class GoogleImageExtractor(object):
@@ -49,7 +51,10 @@ class GoogleImageExtractor(object):
                                 self.postfix_of_search_url
  
     def retrieve_source_fr_html(self):
-        driver = webdriver.Chrome(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'chromedriver'))
+
+        display = Display(visible=0, size=(800, 600))
+        display.start()
+        driver = webdriver.Chrome() #(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'chromedriver'))
         driver.get(self.target_url_str)
  
         try:
