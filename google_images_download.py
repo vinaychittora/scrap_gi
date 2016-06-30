@@ -117,11 +117,14 @@ class GoogleImageExtractor(object):
         valid_image_ext_list = ['.png','.jpg','.jpeg', '.gif', '.bmp', '.tiff'] #not comprehensive
  
         url = URL(url_link)
-        if url.redirect:
-            return # if there is re-direct, return
- 
-        if file_ext not in valid_image_ext_list:
-            return #return if not valid image extension
+        try:
+            if url.redirect:
+                return # if there is re-direct, return
+     
+            if file_ext not in valid_image_ext_list:
+                return #return if not valid image extension
+        except:
+            return 
  
         f = open(temp_filename_full_path, 'wb') # save as test.gif
         print url_link
