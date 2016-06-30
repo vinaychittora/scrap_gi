@@ -57,18 +57,21 @@ class GoogleImageExtractor(object):
         driver = webdriver.Chrome() #(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'chromedriver'))
         driver.get(self.target_url_str)
  
-        try:
-            driver.execute_script("window.scrollTo(0, 30000)")
-            time.sleep(2)
-            self.temp_page_source = driver.page_source
-            driver.find_element_by_id('smb').click() #ok
-            time.sleep(2)
-            driver.execute_script("window.scrollTo(0, 60000)")
-            time.sleep(2)
-            driver.execute_script("window.scrollTo(0, 60000)")
- 
-        except:
-            print 'not able to find'
+        retry = 0
+        while retry<3:
+            try:
+                driver.execute_script("window.scrollTo(0, 30000)")
+                time.sleep(2)
+                self.temp_page_source = driver.page_source
+                driver.find_element_by_id('smb').click() #ok
+                time.sleep(2)
+                driver.execute_script("window.scrollTo(0, 60000)")
+                time.sleep(2)
+                driver.execute_script("window.scrollTo(0, 60000)")
+            except:
+                retry +=1 
+                print 'not able to find, retrying - ' + str(retry)
+        if retry>4:        
             driver.quit()
  
         self.page_source = driver.page_source
